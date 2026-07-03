@@ -3,26 +3,25 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#06121f">
+<meta name="theme-color" content="#0b79d0">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Hinode Signage">
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="icon" href="./icons/icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="./icons/icon.svg">
-<title>Hinode Smart Signage Ver.12</title>
-<link rel="stylesheet" href="./style.css">
+<title>Hinode Smart Signage Ver.13</title>
+<link rel="stylesheet" href="./style.css?v=13">
 </head>
 <body>
-<div class="art-bg"></div>
-<div class="grid-glow"></div>
+<div class="sky-bg"></div>
 
 <main class="app">
   <header class="topbar">
     <div class="brand-block">
-      <div class="h-mark">H</div>
+      <div class="sun-mark">☀</div>
       <div>
-        <div class="brand">Hinode Smart Signage</div>
-        <div class="tagline">SAFETY WEATHER DISPLAY</div>
+        <div class="brand">日乃出アートプロダクト</div>
+        <div class="tagline">HINODE ART PRODUCT</div>
       </div>
     </div>
     <div class="top-actions">
@@ -31,40 +30,34 @@
     </div>
   </header>
 
-  <section class="headline-strip">
-    <span id="topMessage">本日の気象情報</span>
+  <section class="message-strip">
+    <span id="topMessage">おはようございます！今日も一日、安全に気をつけて頑張りましょう！</span>
   </section>
 
-  <section class="hero-card">
-    <div class="hero-left">
-      <div class="place-label">SELECTED AREA</div>
+  <section class="hero-grid">
+    <article class="weather-main-card">
+      <div class="section-title">現在の天気</div>
       <h1 id="areaName">奈良県</h1>
+      <div class="weather-row">
+        <div class="weather-icon" id="weatherIcon">🌤️</div>
+        <div class="temp-now"><span id="tempNow">--</span><small>℃</small></div>
+      </div>
       <div class="weather-text" id="weatherText">取得中</div>
-      <div class="summary" id="summaryText">気象庁APIから天気情報を取得しています。</div>
-    </div>
-    <div class="hero-right">
-      <div class="main-temp"><span id="tempNow">--</span><small>℃</small></div>
       <div class="hi-low">
-        <span>HIGH <b id="highTemp">--</b></span>
-        <span>LOW <b id="lowTemp">--</b></span>
+        <span>最高 <b id="highTemp">--</b></span>
+        <span>最低 <b id="lowTemp">--</b></span>
       </div>
-      <div class="pop-chip">降水 <b id="pop">--%</b></div>
-    </div>
-  </section>
+      <div class="weather-metrics">
+        <div><span>降水確率</span><b id="pop">--%</b></div>
+        <div><span>更新</span><b id="updatedAt">--:--</b></div>
+      </div>
+    </article>
 
-  <section class="status-grid">
-    <article class="glass-panel wbgt-card" id="wbgtCard">
-      <div class="panel-head">
-        <span>HEATSTROKE INDEX</span>
-        <small id="updatedAt">--:--</small>
-      </div>
-      <div class="wbgt-display">
-        <div class="wbgt-number"><span id="wbgtValue">--</span><small>WBGT</small></div>
-        <div>
-          <div class="wbgt-level" id="wbgtLevel">判定中</div>
-          <p id="wbgtMessage">暑さ指数を判定しています。</p>
-        </div>
-      </div>
+    <article class="wbgt-card" id="wbgtCard">
+      <div class="section-title dark">熱中症指数（WBGT）</div>
+      <div class="wbgt-level" id="wbgtLevel">判定中</div>
+      <div class="wbgt-value"><span id="wbgtValue">--</span></div>
+      <p id="wbgtMessage">暑さ指数を判定しています。</p>
       <div class="risk-scale">
         <span data-risk="caution">注意</span>
         <span data-risk="warning">警戒</span>
@@ -72,30 +65,24 @@
         <span data-risk="danger">危険</span>
       </div>
     </article>
-
-    <article class="glass-panel sign-panel">
-      <div class="panel-head"><span>SIGNAGE MODE</span><small>Hinode Art</small></div>
-      <div class="sign-copy">現場・学校・施設に<br>安全情報を、見やすく。</div>
-      <div class="mini-meta">
-        <span>JMA API</span><span>PWA</span><span>Mobile</span>
-      </div>
-    </article>
   </section>
 
-  <section class="glass-panel forecast-panel">
-    <div class="forecast-head">
-      <div>
-        <div class="panel-head no-border"><span id="forecastSmallTitle">HOURLY FORECAST</span></div>
-        <h2 id="forecastTitle">現在から12時間</h2>
-      </div>
-      <div class="mode-pill" id="modeLabel">時間別</div>
-    </div>
+  <section class="summary-card">
+    <p id="summaryText">気象庁APIから天気情報を取得しています。</p>
+  </section>
+
+  <section class="tab-card">
+    <button id="hourlyModeBtn" class="tab active">時間ごとの天気</button>
+    <button id="weeklyModeBtn" class="tab">週間天気</button>
+  </section>
+
+  <section class="forecast-card">
     <div id="hourlyPanel" class="hourly-scroll"></div>
-    <div id="weeklyPanel" class="weekly-list hidden"></div>
+    <div id="weeklyPanel" class="weekly-compact hidden"></div>
   </section>
 
   <footer class="ticker-wrap">
-    <div id="tickerText" class="ticker">熱中症対策：こまめな水分補給と休憩を心がけましょう。</div>
+    <div id="tickerText" class="ticker">本日も猛暑が予想されます。こまめな水分補給と休憩を忘れずに！</div>
   </footer>
 </main>
 
@@ -109,11 +96,11 @@
     </div>
 
     <label>上部テキスト
-      <input id="topTextInput" type="text" placeholder="例：本日の気象情報">
+      <input id="topTextInput" type="text">
     </label>
 
     <label>下部テロップ
-      <input id="tickerInput" type="text" placeholder="例：こまめな水分補給をお願いします">
+      <input id="tickerInput" type="text">
     </label>
 
     <label>地域
@@ -122,17 +109,17 @@
 
     <div class="setting-title">予報表示</div>
     <div class="segmented">
-      <button id="hourlyModeBtn">時間別</button>
-      <button id="weeklyModeBtn">週間</button>
+      <button id="hourlyModeBtnSetting">時間別</button>
+      <button id="weeklyModeBtnSetting">週間</button>
     </div>
 
     <button id="saveSettings" class="save-btn">保存して反映</button>
   </div>
 </aside>
 
-<script src="./script.js"></script>
+<script src="./script.js?v=13"></script>
 <script>
-if ("serviceWorker" in navigator) window.addEventListener("load",()=>navigator.serviceWorker.register("./service-worker.js"));
+if ("serviceWorker" in navigator) window.addEventListener("load",()=>navigator.serviceWorker.register("./service-worker.js?v=13"));
 </script>
 </body>
 </html>
