@@ -1,13 +1,13 @@
 {
-  "name": "Hinode Smart Signage Ver.13",
+  "name": "Hinode Smart Signage Ver.14",
   "short_name": "Hinode Signage",
-  "description": "明るい安全サイネージUI",
+  "description": "黒背景ネオンUIの天気・熱中症指数サイネージ",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#0b79d0",
-  "theme_color": "#0b79d0",
+  "background_color": "#000000",
+  "theme_color": "#000000",
   "icons": [
     {
       "src": "./icons/icon.svg",

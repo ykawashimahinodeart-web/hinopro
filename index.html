@@ -3,91 +3,95 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#0b79d0">
+<meta name="theme-color" content="#000000">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Hinode Signage">
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="icon" href="./icons/icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="./icons/icon.svg">
-<title>Hinode Smart Signage Ver.13</title>
-<link rel="stylesheet" href="./style.css?v=13">
+<title>Hinode Smart Signage Ver.14</title>
+<link rel="stylesheet" href="./style.css?v=14">
 </head>
 <body>
-<div class="sky-bg"></div>
-
 <main class="app">
   <header class="topbar">
-    <div class="brand-block">
-      <div class="sun-mark">☀</div>
+    <div class="logo-area">
+      <div class="symbol">
+        <span class="sun">☀</span>
+        <span class="hm">HN</span>
+      </div>
       <div>
-        <div class="brand">日乃出アートプロダクト</div>
-        <div class="tagline">HINODE ART PRODUCT</div>
+        <div class="company">HINODE ART PRODUCT</div>
+        <div class="jp">日乃出アートプロダクト</div>
       </div>
     </div>
-    <div class="top-actions">
-      <select id="prefSelect" aria-label="地域選択"></select>
-      <button id="settingsBtn" class="icon-btn" aria-label="設定">⚙</button>
+    <div class="area-select">
+      <span class="pin">📍</span>
+      <select id="prefSelect"></select>
+      <button id="settingsBtn">⚙</button>
     </div>
   </header>
 
-  <section class="message-strip">
+  <section class="message-bar">
+    <span class="msg-icon">📣</span>
     <span id="topMessage">おはようございます！今日も一日、安全に気をつけて頑張りましょう！</span>
+    <span class="edit">✎</span>
   </section>
 
-  <section class="hero-grid">
-    <article class="weather-main-card">
-      <div class="section-title">現在の天気</div>
-      <h1 id="areaName">奈良県</h1>
-      <div class="weather-row">
-        <div class="weather-icon" id="weatherIcon">🌤️</div>
+  <section class="main-grid">
+    <article class="panel weather-panel">
+      <div class="panel-title">現在の天気</div>
+      <div class="weather-main">
+        <div id="weatherIcon" class="weather-icon">🌤️</div>
         <div class="temp-now"><span id="tempNow">--</span><small>℃</small></div>
       </div>
-      <div class="weather-text" id="weatherText">取得中</div>
-      <div class="hi-low">
-        <span>最高 <b id="highTemp">--</b></span>
-        <span>最低 <b id="lowTemp">--</b></span>
-      </div>
-      <div class="weather-metrics">
-        <div><span>降水確率</span><b id="pop">--%</b></div>
+      <div id="weatherText" class="weather-text">取得中</div>
+      <div class="weather-data">
+        <div><span>最高</span><b id="highTemp">--</b></div>
+        <div><span>最低</span><b id="lowTemp">--</b></div>
+        <div><span>降水</span><b id="pop">--%</b></div>
         <div><span>更新</span><b id="updatedAt">--:--</b></div>
       </div>
     </article>
 
-    <article class="wbgt-card" id="wbgtCard">
-      <div class="section-title dark">熱中症指数（WBGT）</div>
-      <div class="wbgt-level" id="wbgtLevel">判定中</div>
+    <article class="panel wbgt-panel" id="wbgtCard">
+      <div class="wbgt-title">熱中症指数（WBGT）</div>
+      <div id="wbgtLevel" class="wbgt-level">判定中</div>
       <div class="wbgt-value"><span id="wbgtValue">--</span></div>
-      <p id="wbgtMessage">暑さ指数を判定しています。</p>
+      <div id="wbgtMessage" class="wbgt-message">暑さ指数を判定しています。</div>
       <div class="risk-scale">
-        <span data-risk="caution">注意</span>
-        <span data-risk="warning">警戒</span>
-        <span data-risk="severe">厳重警戒</span>
-        <span data-risk="danger">危険</span>
+        <span data-risk="caution">注意<br><small>21未満</small></span>
+        <span data-risk="warning">警戒<br><small>21〜25</small></span>
+        <span data-risk="severe">厳重警戒<br><small>25〜28</small></span>
+        <span data-risk="danger">危険<br><small>28以上</small></span>
       </div>
     </article>
   </section>
 
-  <section class="summary-card">
+  <section class="summary-panel">
+    <span>INFO</span>
     <p id="summaryText">気象庁APIから天気情報を取得しています。</p>
   </section>
 
   <section class="tab-card">
-    <button id="hourlyModeBtn" class="tab active">時間ごとの天気</button>
-    <button id="weeklyModeBtn" class="tab">週間天気</button>
+    <button id="hourlyModeBtn" class="tab active">🕘 時間ごとの天気</button>
+    <button id="weeklyModeBtn" class="tab">📅 週間天気</button>
   </section>
 
-  <section class="forecast-card">
+  <section class="panel forecast-panel">
     <div id="hourlyPanel" class="hourly-scroll"></div>
-    <div id="weeklyPanel" class="weekly-compact hidden"></div>
+    <div id="weeklyPanel" class="weekly-grid hidden"></div>
   </section>
 
   <footer class="ticker-wrap">
+    <span class="msg-icon">📣</span>
     <div id="tickerText" class="ticker">本日も猛暑が予想されます。こまめな水分補給と休憩を忘れずに！</div>
+    <span class="edit">✎</span>
   </footer>
 </main>
 
-<div class="modal-backdrop hidden" id="modalBackdrop"></div>
-<aside class="settings-panel hidden" id="settingsPanel">
+<div id="modalBackdrop" class="modal-backdrop hidden"></div>
+<aside id="settingsPanel" class="settings-panel hidden">
   <div class="settings-sheet">
     <div class="sheet-handle"></div>
     <div class="sheet-head">
@@ -95,17 +99,9 @@
       <button id="closeSettings">×</button>
     </div>
 
-    <label>上部テキスト
-      <input id="topTextInput" type="text">
-    </label>
-
-    <label>下部テロップ
-      <input id="tickerInput" type="text">
-    </label>
-
-    <label>地域
-      <select id="prefSelectSettings"></select>
-    </label>
+    <label>上部テキスト<input id="topTextInput" type="text"></label>
+    <label>下部テロップ<input id="tickerInput" type="text"></label>
+    <label>地域<select id="prefSelectSettings"></select></label>
 
     <div class="setting-title">予報表示</div>
     <div class="segmented">
@@ -117,9 +113,11 @@
   </div>
 </aside>
 
-<script src="./script.js?v=13"></script>
+<script src="./script.js?v=14"></script>
 <script>
-if ("serviceWorker" in navigator) window.addEventListener("load",()=>navigator.serviceWorker.register("./service-worker.js?v=13"));
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load",()=>navigator.serviceWorker.register("./service-worker.js?v=14"));
+}
 </script>
 </body>
 </html>

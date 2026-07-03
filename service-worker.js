@@ -1,5 +1,5 @@
-const CACHE_NAME="hinode-signage-ver13-bright-safety-ui";
-const ASSETS=["./","./index.html","./style.css?v=13","./script.js?v=13","./manifest.webmanifest","./icons/icon.svg"];
+const CACHE_NAME="hinode-signage-ver14-black-neon";
+const ASSETS=["./","./index.html","./style.css?v=14","./script.js?v=14","./manifest.webmanifest","./icons/icon.svg"];
 self.addEventListener("install",e=>{e.waitUntil(caches.open(CACHE_NAME).then(c=>c.addAll(ASSETS).catch(()=>{})));self.skipWaiting();});
 self.addEventListener("activate",e=>{e.waitUntil(caches.keys().then(keys=>Promise.all(keys.map(k=>k!==CACHE_NAME?caches.delete(k):null))).then(()=>self.clients.claim()))});
 self.addEventListener("fetch",e=>{const u=new URL(e.request.url);if(u.hostname.includes("jma.go.jp")){e.respondWith(fetch(e.request).catch(()=>caches.match(e.request)));return;}e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request)));});
